@@ -1,0 +1,59 @@
+/* D156.css */
+
+
+#petitioner{
+    height: 100%;
+    background: linear-gradient(135deg,#71b7e6,#9b59b6);
+    padding: 30px;
+}
+#respondent{
+    display: none;
+    background: green;
+}
+#complaintArea{
+    display: none;
+    background: yellow;
+}
+.formDiv{
+    background-color:white ;
+    width: 310px;
+    height: 715px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Add box shadow */
+}
+.form{
+    text-align: center;
+    height: 580px;
+}
+label{
+    font-size: 24px;
+    font-weight: 600;
+}
+input{
+    width: 280px;
+    height: 30px;
+}
+select{
+    width: 280px;
+    height: 30px;
+}
+button{
+    width: 280px;
+    height: 40px;
+    background: linear-gradient(135deg,#71b7e6,#9b59b6);
+    border-radius: 8px;
+}
+label, input, select {
+    margin-bottom: 30px;
+
+    border-radius: 4px;
+}
+
+input, select {
+    
+    border: 1px solid #9b59b6; /* Set border color */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add box shadow */
+
+}
