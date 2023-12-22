@@ -21,6 +21,8 @@ const D156 = () => {
   const [age, setAge] = useState("");
   const [petitioners, setPetitioners] = useState([]);
 
+  const [mergedData, setMergedData] = useState([]);
+
   const handleDistrictChange = (selectedDistrict) => {
     setDistrict(selectedDistrict);
     // Reset the selected thana when the district changes
@@ -100,6 +102,8 @@ const D156 = () => {
         body: JSON.stringify(petitioners),
       });
 
+    
+
       // Handle the response from the server if needed
       const responseData = await response.json();
       console.log("Server Response:", responseData);
@@ -120,6 +124,8 @@ const D156 = () => {
   };
   
   const goToComplaintArea = () => {
+    const combinedData = [...petitioners, ...respondents];
+    setMergedData(combinedData);
     let respondentDiv = document.getElementById("respondent");
     respondentDiv.style.display = "none";
   
@@ -390,6 +396,30 @@ const downloadPdf=()=>{
   </button>
 
   <button type="button" onClick={downloadPdf}>
+
+{/* display merege data starts */}
+{mergedData.length > 0 && (
+  <div>
+    <h2>Merged Data:</h2>
+    <ul>
+      {mergedData.map((data, index) => (
+        <li key={index}>
+          <strong>{`Entry ${index + 1}:`}</strong>
+          <ul>
+            <li>Name: {data.name || data.rName}</li>
+            <li>Father's Name: {data.fatherName || data.rFatherName}</li>
+            <li>District: {data.district || data.rDistrict}</li>
+            <li>Thana: {data.thana || data.rThana}</li>
+            <li>Address: {data.address || data.rAddress}</li>
+            <li>Age: {data.age || data.rAge}</li>
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+{/* display merge data ends */}
+
     Download PDF
   </button>
       </div>
