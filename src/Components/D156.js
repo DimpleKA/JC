@@ -165,7 +165,7 @@ const D156 = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              />
+              required/>
             </label>
             <br />
 
@@ -175,7 +175,7 @@ const D156 = () => {
                 type="text"
                 value={fatherName}
                 onChange={(e) => setFatherName(e.target.value)}
-              />
+              required/>
             </label>
             <br />
 
@@ -184,7 +184,7 @@ const D156 = () => {
               <select
                 value={district}
                 onChange={(e) => handleDistrictChange(e.target.value)}
-              >
+              required>
                 {districts.map((districtOption) => (
                   <option key={districtOption} value={districtOption}>
                     {districtOption}
@@ -212,7 +212,7 @@ const D156 = () => {
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-              />
+               required/>
             </label>
             <br />
 
@@ -229,7 +229,7 @@ const D156 = () => {
             <br />
             {/* form for petitoner ends */}
             <br/>
-            <button type="submit">Submit</button>
+            <button type="submit" >Add Petitioners</button>
           </form>
         </div>
 
@@ -255,7 +255,7 @@ const D156 = () => {
                     type="button"
                     onClick={() => handleRemovePetitioner(index)}
                   >
-                    Remove
+                    Remove Petitioner  {index+1}
                   </button>
                 </li>
               ))}
@@ -266,7 +266,7 @@ const D156 = () => {
         {/* Button to send data to the server */}
         {petitioners.length > 0 && (
           <div>
-            <button type="button" onClick={handleSendData}>
+            <button type="button" onClick={handleSendData} style={{background:'#00d711'}}>
               Save And Proceed to Respondents
             </button>
           </div>
