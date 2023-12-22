@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import './D156.css';
+import "./D156.css";
 const D156 = () => {
-
   // petioner div and respondent div and complaint area div
- 
 
   // 1. petioner starts
-  const districts = ["District 1", "District 2"]; // Add your district options
+  const districts = ["Select Your District", "Allahabad"]; // Add your district options
   const thanasByDistrict = {
-    "District 1": ["Thana 1A", "Thana 1B"],
-    "District 2": ["Thana 2A", "Thana 2B", "Thana 2C"],
+    "Select Your Thana Below": [
+     "select your thana"
+    ],
+    "Allahabad": [
+      "Attarsuiya", "Cantonment", "Civil Lines", "Colonelganj", "Daraganj", "Dhoomanganj", "George Town",
+      "Jhunsi", "Kareli", "Khuldabad", "Kotwali", "Kydganj", "Mahila Thana/ Women", "Mutthiganj", "Shahganj",
+      "Shivkuti", "Bara", "Kaundhiyara", "Lalapur", "Shankargadh", "Handia", "Industrial Area", "Sarai Mamrej",
+      "Utraanv", "Ghoorpur", "Karchana", "Naini", "Khiri", "Koraon", "Manda", "Meja", "Bahariya", "Phulpur",
+      "Sarai Inayat", "Tharwai", "Holagadh", "Mauaima", "Nawabganj", "Soraon"
+    ],
     // Add more entries for other districts and their respective thanas
   };
 
@@ -90,8 +96,8 @@ const D156 = () => {
     let petitionerDiv = document.getElementById("petitioner");
     petitionerDiv.style.display = "none";
 
-      let respondentDiv = document.getElementById("respondent");
-    respondentDiv.style.display ="initial";
+    let respondentDiv = document.getElementById("respondent");
+    respondentDiv.style.display = "initial";
 
     try {
       const response = await fetch("https://abbuja.000webhostapp.com/JC.php", {
@@ -101,8 +107,6 @@ const D156 = () => {
         },
         body: JSON.stringify(petitioners),
       });
-
-    
 
       // Handle the response from the server if needed
       const responseData = await response.json();
@@ -114,119 +118,125 @@ const D156 = () => {
 
   const goBackToPetitoner = () => {
     let respondentDiv = document.getElementById("respondent");
-    respondentDiv.style.display = "none" ;
-  
+    respondentDiv.style.display = "none";
+
     let complaintAreaDiv = document.getElementById("complaintArea");
     complaintAreaDiv.style.display = "none";
-  
+
     let petitionerDiv = document.getElementById("petitioner");
     petitionerDiv.style.display = "block";
   };
-  
+
   const goToComplaintArea = () => {
     const combinedData = [...petitioners, ...respondents];
     setMergedData(combinedData);
     let respondentDiv = document.getElementById("respondent");
     respondentDiv.style.display = "none";
-  
+
     let complaintAreaDiv = document.getElementById("complaintArea");
-    complaintAreaDiv.style.display ="block";
-  
+    complaintAreaDiv.style.display = "block";
+
     let petitionerDiv = document.getElementById("petitioner");
     petitionerDiv.style.display = "none";
   };
-  
- const goBackToRespondent= () => {
-  let respondentDiv = document.getElementById("respondent");
-  respondentDiv.style.display = "block" ;
 
-  let complaintAreaDiv = document.getElementById("complaintArea");
-  complaintAreaDiv.style.display = "none";
+  const goBackToRespondent = () => {
+    let respondentDiv = document.getElementById("respondent");
+    respondentDiv.style.display = "block";
 
-  let petitionerDiv = document.getElementById("petitioner");
-  petitionerDiv.style.display = "none";
-};
+    let complaintAreaDiv = document.getElementById("complaintArea");
+    complaintAreaDiv.style.display = "none";
 
-const downloadPdf=()=>{
-  
-}
+    let petitionerDiv = document.getElementById("petitioner");
+    petitionerDiv.style.display = "none";
+  };
+
+  const downloadPdf = () => {};
 
   return (
     <>
       <div id="petitioner">
-        <form onSubmit={handleSubmit}>
-          {/* form for petitoners starts */}
-          <label>
-            Name (as in Aadhar card):
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          <br />
+        <div className="formDiv">
+          <form onSubmit={handleSubmit} className="form">
+            {/* form for petitoners starts */}
+            <label>
+              Name (as in Aadhar card): <br/>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            <br />
 
-          <label>
-            Father's Name:
-            <input
-              type="text"
-              value={fatherName}
-              onChange={(e) => setFatherName(e.target.value)}
-            />
-          </label>
-          <br />
+            <label>
+              Father's Name: <br/>
+              <input
+                type="text"
+                value={fatherName}
+                onChange={(e) => setFatherName(e.target.value)}
+              />
+            </label>
+            <br />
 
-          <label>
-            District:
-            <select
-              value={district}
-              onChange={(e) => handleDistrictChange(e.target.value)}
-            >
-              {districts.map((districtOption) => (
-                <option key={districtOption} value={districtOption}>
-                  {districtOption}
-                </option>
-              ))}
-            </select>
-          </label>
-          <br />
+            <label>
+              District: <br/>
+              <select
+                value={district}
+                onChange={(e) => handleDistrictChange(e.target.value)}
+              >
+                {districts.map((districtOption) => (
+                  <option key={districtOption} value={districtOption}>
+                    {districtOption}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />
 
-          <label>
-            Thana:
-            <select value={thana} onChange={(e) => setThana(e.target.value)}>
-              {thanasByDistrict[district]?.map((thanaOption) => (
-                <option key={thanaOption} value={thanaOption}>
-                  {thanaOption}
-                </option>
-              ))}
-            </select>
-          </label>
-          <br />
+            <label>
+              Thana: <br/>
+              <select value={thana} onChange={(e) => setThana(e.target.value)}>
+                {thanasByDistrict[district]?.map((thanaOption) => (
+                  <option key={thanaOption} value={thanaOption}>
+                    {thanaOption}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />
 
-          <label>
-            Address:
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </label>
-          <br />
+            <label>
+              Address: <br/>
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </label>
+            <br />
 
-          <label>
-            Age:
-            <select value={age} onChange={(e) => setAge(e.target.value)}>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              {/* Add more options as needed */}
-            </select>
-          </label>
-          <br />
-          {/* form for petitoner ends */}
-          <button type="submit">Submit</button>
-        </form>
-        {/* Display submitted petitioners */}
-        {petitioners.length > 0 && (
+            <label>
+              Age: <br/>
+              <select value={age} onChange={(e) => setAge(e.target.value)}>
+  {Array.from({ length: 150 }, (_, index) => (
+    <option key={index + 1} value={index + 1}>
+      {index + 1} years
+    </option>
+  ))}
+</select>
+            </label>
+            <br />
+            {/* form for petitoner ends */}
+            <br/>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+
+    <div className="petDisplay">
+ {/* Display submitted petitioners */}
+ {petitioners.length > 0 && (
           <div>
             <h2>Submitted Petitioners:</h2>
             <ul>
@@ -262,11 +272,10 @@ const downloadPdf=()=>{
           </div>
         )}
       </div>
+    </div>
+       
+
       {/* respondent form starts */}
-
-
-
-
 
       <div id="respondent">
         {/* form for respondent starts  */}
@@ -343,87 +352,74 @@ const downloadPdf=()=>{
         <button type="button" onClick={goToComplaintArea}>
           Go Back TO Complaint Area
         </button> */}
-        
-  {/* respondent display area starts */}
-  {respondents.length > 0 && (
-        <div>
-          <h2>Submitted Respondents:</h2>
-          <ul>
-            {respondents.map((respondent, index) => (
-              <li key={index}>
-                <strong>{`Respondent ${index + 1}:`}</strong>
-                <ul>
-                  <li>Name: {respondent.rName}</li>
-                  <li>Father's Name: {respondent.rFatherName}</li>
-                  <li>District: {respondent.rDistrict}</li>
-                  <li>Thana: {respondent.rThana}</li>
-                  <li>Address: {respondent.rAddress}</li>
-                  <li>Age: {respondent.rAge}</li>
-                </ul>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveRespondent(index)}
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
-      {/* respondent displaly area ends */}
-      <button type="button" onClick={goBackToPetitoner}>
-    Go Back TO Petitioner from respondent
-  </button>
+        {/* respondent display area starts */}
+        {respondents.length > 0 && (
+          <div>
+            <h2>Submitted Respondents:</h2>
+            <ul>
+              {respondents.map((respondent, index) => (
+                <li key={index}>
+                  <strong>{`Respondent ${index + 1}:`}</strong>
+                  <ul>
+                    <li>Name: {respondent.rName}</li>
+                    <li>Father's Name: {respondent.rFatherName}</li>
+                    <li>District: {respondent.rDistrict}</li>
+                    <li>Thana: {respondent.rThana}</li>
+                    <li>Address: {respondent.rAddress}</li>
+                    <li>Age: {respondent.rAge}</li>
+                  </ul>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveRespondent(index)}
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-  <button type="button" onClick={goToComplaintArea}>
-    Go to Complaint Area
-  </button>
+        {/* respondent displaly area ends */}
+        <button type="button" onClick={goBackToPetitoner}>
+          Go Back TO Petitioner from respondent
+        </button>
+
+        <button type="button" onClick={goToComplaintArea}>
+          Go to Complaint Area
+        </button>
       </div>
       {/* respondent form ends */}
 
-
-
-
-
-
       {/* complaint area starts  */}
-      <div id="complaintArea" >
-      <h1> Complaint area.</h1>
-  <button type="button" onClick={goBackToRespondent}>
-    Go Back TO Respondents
-  </button>
+      <div id="complaintArea">
+        <h1> Complaint area.</h1>
+        <button type="button" onClick={goBackToRespondent}>
+          Go Back TO Respondents
+        </button>
 
-  <button type="button" onClick={downloadPdf}>
+        <button type="button" onClick={downloadPdf}>
+          {/* Display merged data in two columns */}
+          <div>
+            <h2>Petitioners' Names:</h2>
+            <ul>
+              {mergedData.map((data, index) => (
+                <li key={index}>{data.name}</li>
+              ))}
+            </ul>
+          </div>
 
-{/* display merege data starts */}
-{mergedData.length > 0 && (
-  <div>
-    <h2>Merged Data:</h2>
-    <ul>
-      {mergedData.map((data, index) => (
-        <li key={index}>
-          <strong>{`Entry ${index + 1}:`}</strong>
-          <ul>
-            <li>Name: {data.name || data.rName}</li>
-            <li>Father's Name: {data.fatherName || data.rFatherName}</li>
-            <li>District: {data.district || data.rDistrict}</li>
-            <li>Thana: {data.thana || data.rThana}</li>
-            <li>Address: {data.address || data.rAddress}</li>
-            <li>Age: {data.age || data.rAge}</li>
-          </ul>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-{/* display merge data ends */}
-
-    Download PDF
-  </button>
+          <div>
+            <h2>Respondents' Names:</h2>
+            <ul>
+              {mergedData.map((data, index) => (
+                <li key={index}>{data.rName}</li>
+              ))}
+            </ul>
+          </div>
+        </button>
       </div>
-      {/* complaint area ends */}
     </>
   );
 };
