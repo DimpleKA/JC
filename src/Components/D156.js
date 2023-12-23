@@ -131,21 +131,9 @@ const D156 = () => {
     let respondentDiv = document.getElementById("respondent");
     respondentDiv.style.display = "initial";
 
-    try {
-      const response = await fetch("https://abbuja.000webhostapp.com/JC.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(petitioners),
-      });
+    
 
-      // Handle the response from the server if needed
-      const responseData = await response.json();
-      console.log("Server Response:", responseData);
-    } catch (error) {
-      console.error("Error sending data to the server:", error);
-    }
+    console.log("Simulating sending data to the server:", petitioners);
   };
 
   const goBackToPetitoner = () => {
@@ -201,7 +189,40 @@ const D156 = () => {
   };
 
 // complaint area ends
-  const downloadPdf = () => {};
+  const downloadPdf = () => {
+   // Combine petitioners, respondents, and paragraphsArray
+  const combinedData = [...petitioners, ...respondents, ...paragraphsArray];
+  setMergedData(combinedData);
+
+  // Create a new XMLHttpRequest
+  const xhr = new XMLHttpRequest();
+
+  // Configure it to be a POST request to the specified URL
+  xhr.open("POST", "http://localhost/JC/JC.php", true);
+
+  // Set the request header to indicate the content type
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  // Define the callback function to handle the response from the server
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        // Handle the successful response from the server
+        const responseData = JSON.parse(xhr.responseText);
+        console.log("Server Response:", responseData);
+      } else {
+        // Handle errors here
+        console.error("Error sending data to the server. Status:", xhr.status);
+      }
+    }
+  };
+
+  // Convert the combined data to JSON and send it in the request body
+  const requestBody = JSON.stringify(combinedData);
+  xhr.send(requestBody);
+
+
+  };
 
   return (
     <>
